@@ -16,7 +16,7 @@
     
     cpu_lbl         DB 'CPU Type    : $'
     mem_lbl         DB 'Base Memory : $'
-    ext_lbl         DB 'Ext Memory  : $'
+    ext_lbl         DB 'Extended Memory  : $'
     vid_lbl         DB 'Video Card  : $'
     dos_lbl         DB 'DOS Version : $'
     date_lbl        DB 'Date        : $'
@@ -169,6 +169,18 @@ opt_all:
     JMP menu_loop
 
 exit_prog:
+    MOV AH, 06h
+    MOV AL, 00h
+    MOV BH, 07h       
+    MOV CX, 0000h
+    MOV DX, 184Fh
+    INT 10h
+
+    MOV AH, 02h
+    MOV BH, 0
+    MOV DH, 0
+    MOV DL, 0
+    INT 10h
     MOV AH, 4Ch
     INT 21h
 MAIN ENDP
@@ -378,7 +390,7 @@ WAIT_KEY ENDP
 CLEAR_SCR PROC
     MOV AH, 06h
     MOV AL, 00h
-    MOV BH, 1Fh
+    MOV BH, 3Fh
     MOV CX, 0000h
     MOV DX, 184Fh
     INT 10h
